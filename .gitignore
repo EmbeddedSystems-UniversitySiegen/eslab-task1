@@ -2,7 +2,6 @@ latex/
 html/
 build/
 libs/
-doxygen-awesome-css/
 **/.cache/
 **/.vscode/
 **/.cache/

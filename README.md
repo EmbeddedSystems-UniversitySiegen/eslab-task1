@@ -1,4 +1,4 @@
-# Getting Started
+# Backend Simulator
 
 ## Table of Contents
 
@@ -40,7 +40,7 @@ To install the simulator, follow these steps:
 - Clone the repository to your local machine:
 
   ```bash
-  git clone git@github.com:linem-davton/es-lab-task1.git
+  git clone https://github.com/EmbeddedSystems-UniversitySiegen/eslab-task1.git
   ```
 
 - Navigate to the project directory:
@@ -102,7 +102,7 @@ To use the simulator, follow these steps:
    ./simulator
    ```
 
-3. Go to [eslab1.pages.dev](https://eslab1.pages.dev)
+3. Go to [simulator frontend](https://eslab.es.eti.uni-siegen.de/eslab1/index.html)
 
 4. Use the web interface to control and monitor the simulation parameters.
    You can start, stop, and adjust the simulation settings as needed.
@@ -139,4 +139,4 @@ using the web interface provided by the frontend server.
 
 ## Documentation
 
-Code documentation can be found at [eslab1doc](https://eslab1docs.pages.dev/)
+Code documentation can be found at [ESLAB Task 1 Documentation](https://eslab.es.eti.uni-siegen.de/eslab1/docs/index.html).
