@@ -10,7 +10,9 @@ The inverted pendulum system is a classic example in control engineering due to 
 
 In this task, you will develop and implement control strategies to stabilize the inverted pendulum.
 
-![Schematic drawing of the inverted pendulum on a cart](images/Cart-pendulum.png)
+<p align="center" style="background: white; padding: 10px; border-radius: 8px;">
+    <img src="images/Cart-pendulum.png" alt="Schematic drawing of the inverted pendulum on a cart" style="background: white; padding: 8px; border-radius: 6px;">
+</p>
 
 ---
 
