@@ -6,13 +6,12 @@
 
 ## Introduction
 
-The inverted pendulum system is a classic example in control engineering due to its inherently unstable nature. It consists of a pendulum with its mass above its pivot point, mounted on a moving cart. The main goal is to apply forces to the cart to keep the pendulum upright and stable, despite disturbances. Small deviations from the upright position are amplified, causing the pendulum to fall if not corrected. Successful control requires a feedback mechanism that continuously reacts to the pendulum's state.
+The inverted pendulum system is a classic example of a dynamic system that poses a real challenge in the field of control engineering due to its inherently unstable nature. This system consists of a pendulum that has its mass above its pivot point and is mounted on a moving cart. The primary goal in controlling an inverted pendulum is to apply forces to the cart in such a way that the pendulum remains upright and stable, despite disturbances or changes in motion. This system is inherently unstable. Small disturbances or deviations from the upright position will be amplified, causing the pendulum to fall quickly if uncorrected. Successful control of this system requires a feedback mechanism that reacts continuously to the pendulum’s state to maintain balance.
 
 In this task, you will develop and implement control strategies to stabilize the inverted pendulum.
 
-<p align="center" style="background: white; padding: 10px; border-radius: 8px;">
-    <img src="images/Cart-pendulum.png" alt="Schematic drawing of the inverted pendulum on a cart" style="background: white; padding: 8px; border-radius: 6px;">
-</p>
+![Cart-pendulim](images/Cart-pendulum-background.png)
+
 
 ---
 
@@ -20,27 +19,32 @@ In this task, you will develop and implement control strategies to stabilize the
 
 Many software problems involve interaction with dynamic external processes. Feedback control is a powerful paradigm for managing those interactions. In feedback control, sensors measure the current state (e.g., position and angle of the pendulum), which is compared to the desired state. The difference (error) is fed into a controller, which calculates a corrective action to drive the system toward the desired state.
 
+Many software problems involve interaction with dynamic external processes (e.g., network traffic). Feedback control is a powerful paradigm for managing those interactions. In feed- back control of dynamical systems, we use sensors to measure the current state of the system (such as the position and angle of the pendulum). This measurement is compared to the desired state (e.g., the pendulum balanced upright). The difference, known as the error, is fed into a controller. The controller calculates a corrective action designed to drive the system towards the desired state. The figure below shows a controller in a feedback loop.
+
 ![Feedback control loop](images/control-loop.png)
 
-A **PID (Proportional-Integral-Derivative) controller** is a widely used feedback control mechanism with three components:
+A **PID (Proportional-Integral-Derivative) controller** is a widely used feedback control mechanism. It has three components, each targeting different aspects of the error signal:
 
-- **Proportional (P):** Corrective action proportional to the current error.
-- **Integral (I):** Considers accumulated error over time, helping to eliminate persistent offsets.
-- **Derivative (D):** Anticipates the rate of change of the error, improving responsiveness and damping oscillations.
+- **Proportional (P):** Provides a corrective action proportional to the size of the current error.
+$$
+u_P(t) = K_p \cdot e(t)
+$$
+- **Integral (I):** Considers the accumulated error over time, helping to eliminate persistent offsets.
+$$
+u_I(t) = K_i \cdot \int e(t)
+$$
+- **Derivative (D):** Anticipates the rate of change of the error, improving the system’s responsiveness and damping oscillations.
+$$
+u_D(t) = K_d \cdot \frac{de(t)}{dt}
+$$
 
-The PID controller output is:
+The three components are combined to form the complete PID controller output:
 
 $$
 u(t) = K_p \cdot e(t) + K_i \cdot \int e(t) \, dt + K_d \cdot \frac{de(t)}{dt}
 $$
 
-where:
-- $u(t)$: Controller output
-- $K_p$: Proportional gain
-- $K_i$: Integral gain
-- $K_d$: Derivative gain
-
-PID parameters ($K_p$, $K_i$, $K_d$) need careful tuning. The ideal closed-loop response matches the reference input signal. Common input signals include step, ramp, sinusoidal, random, and impulse.
+where $u(t)$ is the PID controller output, $K_p$ is the Proportional gain, $K_i$ is the Integral gain, and $K_d$ is the Derivative gain. Think of the PID controller as an algorithm with the goal of minimizing error. Like many algorithms, its parameters ($K_p$, $K_i$, $K_d$) need careful tuning. The ideal controlled closed-loop response matches the reference input signal. Various common input signals are depicted in the figure below.
 
 ---
 
@@ -142,33 +146,5 @@ Understanding these equations is crucial for designing a controller to keep the 
 5. Implement delay and jitter in communication:
         - Update parameters in `Simulator::update_params()` (`simulator.cpp`)
         - Implement delay/jitter in `Simulator::run_simulator()` (`simulator.cpp`)
-
----
-
-## Documentation and Reporting
-
-- **Code Comments:** Add comprehensive comments explaining functions, logic, and variables.
-- **Readable Structure:** Organize code logically with clear names and consistent style.
-
-### Writing the Lab Report
-
-- **Introduction:** Objectives and significance of the lab.
-- **Methodology:** Algorithm details, sensor/control logic, diagrams/flowcharts.
-- **Discussion:** Analyze results, challenges, solutions, and effectiveness.
-- **Conclusion:** Summarize findings and insights.
-- **References:** List any external resources used.
-
-### Deliverables
-
-1. `controller.cpp` and `simulator.cpp`
-2. Lab report in PDF format
-
-### Evaluation Criteria
-
-1. Accuracy and functionality of the control system
-2. Robust control with settling time ≤ 20s
-3. Well-structured, logically organized code
-4. Comprehensive code comments
-5. Quality of the report
 
 ---
