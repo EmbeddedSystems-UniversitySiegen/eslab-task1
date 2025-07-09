@@ -1,4 +1,4 @@
-# Backend Simulator for Inverted Pendulum
+# Backend for Inverted Pendulum Simulator
 
 ## Table of Contents
 
