@@ -7,8 +7,6 @@
  * an inverted pendulum system. It also includes declarations for related data
  * structures and synchronization primitives used in the simulation.
  *
- * @author Utkarsh Raj
- * @date 10-April-2024
  */
 
 #pragma once

@@ -8,8 +8,6 @@
  * (Proportional-Integral-Derivative) controller for controlling the pendulum
  * system.
  *
- * @author Utkarsh Raj
- * @date 10-April-2024
  */
 
 #pragma once

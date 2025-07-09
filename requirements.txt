@@ -1,4 +1,6 @@
 pytest
 pytest-json-report
-sphinx 
+Sphinx 
 breathe
+myst-parser
+sphinx-rtd-theme

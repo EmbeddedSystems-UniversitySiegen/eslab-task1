@@ -9,8 +9,6 @@
  * the simulation, allowing control and monitoring of simulation parameters over
  * network.
  *
- * @author Utkarsh Raj
- * @date 10-April-2024
  */
 
 #include "boost/asio/ip/tcp.hpp"
