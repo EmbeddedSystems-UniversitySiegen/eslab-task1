@@ -1,4 +1,4 @@
-# Task Sheet: Inverted Pendulum Control
+# Task Sheet: Inverted Pendulum
 
 ## Introduction
 
