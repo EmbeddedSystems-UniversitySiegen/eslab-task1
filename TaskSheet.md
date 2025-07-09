@@ -26,25 +26,25 @@ Many software problems involve interaction with dynamic external processes (e.g.
 A **PID (Proportional-Integral-Derivative) controller** is a widely used feedback control mechanism. It has three components, each targeting different aspects of the error signal:
 
 - **Proportional (P):** Provides a corrective action proportional to the size of the current error.
-\f[
+$$
 u_P(t) = K_p \cdot e(t)
-\f]
+$$
 - **Integral (I):** Considers the accumulated error over time, helping to eliminate persistent offsets.
-\f[
+$$
 u_I(t) = K_i \cdot \int e(t)
-\f]
+$$
 - **Derivative (D):** Anticipates the rate of change of the error, improving the system’s responsiveness and damping oscillations.
-\f[
+$$
 u_D(t) = K_d \cdot \frac{de(t)}{dt}
-\f]
+$$
 
 The three components are combined to form the complete PID controller output:
 
-\f[
+$$
 u(t) = K_p \cdot e(t) + K_i \cdot \int e(t) \, dt + K_d \cdot \frac{de(t)}{dt}
-\f]
+$$
 
-where \f$u(t)\f$ is the PID controller output, \f$K_p\f$ is the Proportional gain, \f$K_i\f$ is the Integral gain, and \f$K_d\f$ is the Derivative gain. Think of the PID controller as an algorithm with the goal of minimizing error. Like many algorithms, its parameters (\f$K_p\f$, \f$K_i\f$, \f$K_d\f$) need careful tuning. The ideal controlled closed-loop response matches the reference input signal. Various common input signals are depicted in the figure below.
+where $u(t)$ is the PID controller output, $K_p$ is the Proportional gain, $K_i$ is the Integral gain, and $K_d$ is the Derivative gain. Think of the PID controller as an algorithm with the goal of minimizing error. Like many algorithms, its parameters ($K_p$, $K_i$, $K_d$) need careful tuning. The ideal controlled closed-loop response matches the reference input signal. Various common input signals are depicted in the figure below.
 
 ![various_input_signals](images/various_input_signals.png)
 
@@ -54,9 +54,9 @@ where \f$u(t)\f$ is the PID controller output, \f$K_p\f$ is the Proportional gai
 
 Since computers handle signals in discrete time steps, we need a discrete-time version of the PID controller. The equasion below gives the controller output at time step k, that depends on controller output at previous time steps, as well as error on current time step and previous time steps.
 
-\f[
+$$
 u(k) = \frac{b_0}{a_0} e(k) + \frac{b_1}{a_0} e(k-1) + \frac{b_2}{a_0} e(k-2) - \frac{a_1}{a_0} u(k-1) - \frac{a_2}{a_0} u(k-2)
-\f]
+$$
 
 
 where,
@@ -68,9 +68,9 @@ where,
 - **b₁** = –[Kₚ × (2 + N × Tₛ) + Kᵢ × Tₛ + 2 × K_d × N]
 - **b₂** = Kₚ + K_d × N
 
-\f$N\f$ represents the derivative filter coefficient. The derivative term in a PID controller is designed to anticipate future error based on how quickly the error is changing. However, in real-world systems, sensor measurements are often noisy. This noise can get amplified by the derivative term, leading to large, erratic control signals. A derivative filter is a way to mitigate this problem. It essentially smooths out the derivative calculation, reducing its sensitivity to high-frequency noise. A larger \f$N\f$ means more smoothing and less sensitivity to noise, but also slower response to real changes. A smaller \f$N\f$ means less smoothing and more response to potentially more noise. 
+$N$ represents the derivative filter coefficient. The derivative term in a PID controller is designed to anticipate future error based on how quickly the error is changing. However, in real-world systems, sensor measurements are often noisy. This noise can get amplified by the derivative term, leading to large, erratic control signals. A derivative filter is a way to mitigate this problem. It essentially smooths out the derivative calculation, reducing its sensitivity to high-frequency noise. A larger $N$ means more smoothing and less sensitivity to noise, but also slower response to real changes. A smaller $N$ means less smoothing and more response to potentially more noise. 
 
-\f$T_s\f$ represents the sampling time. This is the time interval between when a controller takes a measurement (reads the sensor values) and then calculates and applies a new control input. A shorter sampling time means your controller reacts more frequently to changes in the system. Computer implementations always approximate continuous-world ideas. Consider how the choice of sampling time \f$T\f$ might impact the controller’s performance. In an ideal situation, this delay would be equal to the sampling time. The controller calculates the new output immediately after taking a measurement. 
+$T_s$ represents the sampling time. This is the time interval between when a controller takes a measurement (reads the sensor values) and then calculates and applies a new control input. A shorter sampling time means your controller reacts more frequently to changes in the system. Computer implementations always approximate continuous-world ideas. Consider how the choice of sampling time $T$ might impact the controller’s performance. In an ideal situation, this delay would be equal to the sampling time. The controller calculates the new output immediately after taking a measurement. 
 
 In real systems, there’s often some computational delay – the time it takes your program to do the control calculations. This introduces an extra delay on top of the sampling time.
 
@@ -101,7 +101,7 @@ The response of a control system is heavily influenced by the parameters of its 
 
 Tuning PID controllers to achieve desired performance can be challenging. Several methods have been developed to tune PID controllers, each with its own advantages and limitations. However, manual tuning of control parameters, allows you to appreciate the effect of P, I and D components. Here is some general guideline, you can follow:
 
-Start with a low proportional gain (\f$K_p\f$) and gradually increase it until the system starts to respond. Observe the system’s response and adjust \f$K_p\f$ to achieve the desired response characteristics, such as fast response without significant overshoot. Once a satisfactory \f$K_p\f$ value is found, introduce the integral gain (\f$K_i\f$) to eliminate any steady-state error. Increase \f$K_i\f$ gradually until steady-state error is minimized without causing instability. Finally, add derivative gain (\f$K_d\f$) to improve the system’s stability and reduce overshoot. Adjust \f$K_d\f$ to dampen oscillations without introducing excessive noise or instability.
+Start with a low proportional gain ($K_p$) and gradually increase it until the system starts to respond. Observe the system’s response and adjust $K_p$ to achieve the desired response characteristics, such as fast response without significant overshoot. Once a satisfactory $K_p$ value is found, introduce the integral gain ($K_i$) to eliminate any steady-state error. Increase $K_i$ gradually until steady-state error is minimized without causing instability. Finally, add derivative gain ($K_d$) to improve the system’s stability and reduce overshoot. Adjust $K_d$ to dampen oscillations without introducing excessive noise or instability.
 
 ---
 
@@ -122,34 +122,34 @@ The following two equations represent the dynamics of inverted pendulum system:
 
 #### Linear acceleration:
 
-\f[
+$$
 \ddot{x} = -\frac{m_p l}{m_c + m_p} \ddot{\theta} \cos(\theta) - \frac{m_p l}{m_c + m_p} \dot{\theta}^2 \sin(\theta) + \frac{F}{m_c + m_p}
-\f]
+$$
 
 #### Angular acceleration:
 
-\f[
+$$
 \ddot{\theta} = \frac{m_p g l}{I_p + m_p l^2} \sin(\theta) - \frac{m_p l}{I_p + m_p l^2} \ddot{x} \cos(\theta)
-\f]
+$$
 
 **Symbols:**
 
 | Symbol         | Meaning                                                        |
 |----------------|---------------------------------------------------------------|
-| \f$m_p\f$          | Mass of the pendulum (kg)                                     |
-| \f$l\f$            | Length of the pendulum (m)                                    |
-| \f$m_c\f$          | Mass of the cart (kg)                                         |
-| \f$g\f$            | Gravitational acceleration                                    |
-| \f$I_p\f$          | Moment of inertia of the pendulum around its center of mass    |
-| \f$\ddot{x}\f$     | Acceleration of the cart (horizontal)                         |
-| \f$\theta\f$       | Angle of the pendulum relative to vertical (rad)              |
-| \f$\dot{\theta}\f$ | Angular velocity of the pendulum (rad/s)                      |
-| \f$\ddot{\theta}\f$| Angular acceleration of the pendulum                          |
-| \f$F\f$            | External force applied to the cart (control input) (N)                        |
+| $m_p$          | Mass of the pendulum (kg)                                     |
+| $l$            | Length of the pendulum (m)                                    |
+| $m_c$          | Mass of the cart (kg)                                         |
+| $g$            | Gravitational acceleration                                    |
+| $I_p$          | Moment of inertia of the pendulum around its center of mass    |
+| $\ddot{x}$     | Acceleration of the cart (horizontal)                         |
+| $\theta$       | Angle of the pendulum relative to vertical (rad)              |
+| $\dot{\theta}$ | Angular velocity of the pendulum (rad/s)                      |
+| $\ddot{\theta}$| Angular acceleration of the pendulum                          |
+| $F$            | External force applied to the cart (control input) (N)                        |
 
-Consider the list of symbols in the table above. The equasion for linear acceleration considers several factors. The first term represents the effect of the pendulum’s inertia. A larger pendulum mass (\f$m_p\f$) or a larger pendulum length (\f$l\f$) will cause a greater opposing force on the cart as it accelerates. The second term captures the effect of the pendulum’s angular velocity (\f$\dot{\theta}\f$). A faster-moving pendulum introduces a Coriolis force that influences the cart’s motion. The third term, \f$F/(mc + mp)\f$, represents the direct effect of the external force (\f$F\f$) applied to the cart, normalized by the total system mass.
+Consider the list of symbols in the table above. The equasion for linear acceleration considers several factors. The first term represents the effect of the pendulum’s inertia. A larger pendulum mass ($m_p$) or a larger pendulum length ($l$) will cause a greater opposing force on the cart as it accelerates. The second term captures the effect of the pendulum’s angular velocity ($\dot{\theta}$). A faster-moving pendulum introduces a Coriolis force that influences the cart’s motion. The third term, $F/(mc + mp)$, represents the direct effect of the external force ($F$) applied to the cart, normalized by the total system mass.
 
-The second equasion describes the angular acceleration (\f$\ddot{\theta}\f$) of the pendulum. The first term represents the torque caused by gravity acting on the pendulum. A larger pendulum mass (\f$m_p\f$), a longer pendulum (\f$l\f$), or a larger gravitational acceleration (\f$g\f$) will all amplify this torque, causing the pendulum to want to fall further away from the vertical position. The second term captures the effect of the cart’s horizontal acceleration (\f$\ddot{x}\f$). When the cart accelerates, it can pull the pendulum back slightly due to the connection between them. Understanding these equations is crucial for designing a controller that can manipulate the external force (\f$F\f$) to keep the pendulum balanced. 
+The second equasion describes the angular acceleration ($\ddot{\theta}$) of the pendulum. The first term represents the torque caused by gravity acting on the pendulum. A larger pendulum mass ($m_p$), a longer pendulum ($l$), or a larger gravitational acceleration ($g$) will all amplify this torque, causing the pendulum to want to fall further away from the vertical position. The second term captures the effect of the cart’s horizontal acceleration ($\ddot{x}$). When the cart accelerates, it can pull the pendulum back slightly due to the connection between them. Understanding these equations is crucial for designing a controller that can manipulate the external force ($F$) to keep the pendulum balanced. 
 
 These equations are implemented in C++ simulator to calculate the system’s behavior for given initial conditions and control inputs. While you do not need to derive them from scratch, good understanding of the terms and their relationships is essential for designing an effective PID controller.
 
@@ -164,7 +164,7 @@ These equations are implemented in C++ simulator to calculate the system’s beh
    - Implement setClamp for setting the output limits in PIDController::setClamp() in `controller.cpp` file.
    - Implement the parameters update function for PID controller in PIDController::update params() in `controller.cpp` file.
    - Implement the reset function for PID controller in PIDController::reset() in `controller.cpp` file.
-3. Tune the PID gains (\f$K_p\f$, \f$K_i\f$, \f$K_d\f$) to stabilize the inverted pendulum.
+3. Tune the PID gains ($K_p$, $K_i$, $K_d$) to stabilize the inverted pendulum.
 4. Simulate for reference angle 0, +0.1, −0.1 rad.
 5. Implement delay and jitter in communication between sensor and controller
    - Implement simulator function to update parameters for delay and jitter in Simulator::update params in`simulator.cpp` file
