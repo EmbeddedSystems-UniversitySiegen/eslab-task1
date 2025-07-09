@@ -1,0 +1,21 @@
+compilation_database_dir: .
+output_directory: docs/plantuml
+diagrams:
+  inverted_pendulum:
+    type: class
+    glob:
+      - src/*.cpp
+      - include/*.h
+    exclude:
+      namespaces:
+        - std
+        - boost
+        - nlohmann
+        - boost_asio_prefer_fn
+        - boost_asio_query_fn
+        - boost_asio_require_fn
+        - boost_move_new_t
+        - boost_swap_impl
+        - boost_type_traits_swappable_detail
+        - mpl_
+        - mpl

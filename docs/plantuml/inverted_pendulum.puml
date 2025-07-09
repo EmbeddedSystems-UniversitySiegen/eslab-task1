@@ -1,0 +1,102 @@
+@startuml
+abstract "Controller" as C_0015707221190624193204
+abstract C_0015707221190624193204 {
+{abstract} +output(double error) = 0 : double
+{abstract} +reset() = 0 : void
+{abstract} +setClamp(double max, double min) = 0 : void
+{abstract} +update_params(double kp, double ki, double kd) = 0 : void
+__
+}
+class "PIDController" as C_0006173588471794238490
+class C_0006173588471794238490 {
++PIDController() : void
+..
++output(double error) : double
++reset() : void
++setClamp(double max, double min) : void
++update_params(double kp, double ki, double kd) : void
+__
++kd : double
++ki : double
++kp : double
+}
+class "SimParams" as C_0009962022010138106661
+class C_0009962022010138106661 {
+__
++delay : int
++delta_t : double
++g : double
++jitter : int
++ref_angle : double
++simulation_time : double
+}
+class "Cart" as C_0003600186653709220194
+class C_0003600186653709220194 {
+__
++I : double
++M : double
++len : double
++m : double
+}
+class "Simulator" as C_0005739425762276452218
+class C_0005739425762276452218 {
++Simulator() : void
++Simulator(std::unique_ptr<Controller> controller, const SimParams & params, const Cart & cart) : void
+..
++reset_simulator() : void
++run_simulator() : void
++update_params(double ref, int delay, int jitter) : void
+__
++A : double
++B : const double
++C : double
++E : double
++F : double
++T : double
++a : const double
++b : double
++buffer_size : const int
++c : double
++c_ml : const double
++error : double
++g_pause : std::atomic<bool>
++g_pause_cv : std::condition_variable
++g_pause_mutex : std::mutex
++g_reset : std::atomic<bool>
++g_start : std::atomic<bool>
++g_start_cv : std::condition_variable
++g_start_mutex : std::mutex
++i : int
++m_cart : Cart
++m_controller : std::unique_ptr<Controller>
++m_params : SimParams
++theta : std::array<double,100>
++theta_dot : std::array<double,2>
++theta_dot_dot : std::array<double,2>
++x : std::array<double,2>
++x_dot : std::array<double,2>
++x_dot_dot : std::array<double,2>
+}
+class "CommServer" as C_0011200438516648707549
+class C_0011200438516648707549 {
++CommServer(Simulator & sim) : void
+..
+-handle_request(tcp::socket & socket) : void
+-run_server() : void
++start_server() : void
+__
+-acceptor : tcp::acceptor
+-address : net::ip::address
+-ioc : net::io_context
+-port : unsigned short
+-sim : Simulator &
+}
+C_0015707221190624193204 <|-- C_0006173588471794238490
+C_0005739425762276452218 o-- C_0015707221190624193204 : +m_controller
+C_0005739425762276452218 o-- C_0009962022010138106661 : +m_params
+C_0005739425762276452218 o-- C_0003600186653709220194 : +m_cart
+C_0011200438516648707549 --> C_0005739425762276452218 : -sim
+
+'Generated with clang-uml, version 0.6.2
+'LLVM version Ubuntu clang version 18.1.3 (1ubuntu1)
+@enduml
