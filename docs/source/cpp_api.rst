@@ -7,6 +7,12 @@ C++ API Reference
 
    Class UML diagram
 
+
+.. figure:: images/main_run_sequence.svg
+   :align: center
+   :width: 80%
+
+   Sequence diagram
 .. raw:: html
 
    <br><br>
