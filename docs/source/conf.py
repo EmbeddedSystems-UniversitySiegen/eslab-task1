@@ -7,7 +7,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'Embedded Systems Lab'
-copyright = '2025, Utkarsh Raj'
+copyright = '2025, Universität Siegen'
 author = 'Utkarsh Raj'
 release = '1.0'
 
